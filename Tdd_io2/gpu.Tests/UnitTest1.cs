@@ -7,14 +7,17 @@ namespace gpu.Tests
         [Fact]
         public void Start_ShouldChangeStatusToRunning()
         {
-            // Arrange
             var gpu = new GPU();
-
-            // Act
             gpu.Start();
-
-            // Assert
             Assert.True(gpu.IsRunning);
+        }
+
+        [Fact]
+        public void Start_WhenAlreadyRunning_ShouldThrowException()
+        {
+            var gpu = new GPU();
+            gpu.Start();
+            Assert.Throws<InvalidOperationException>(() => gpu.Start());
         }
     }
 }

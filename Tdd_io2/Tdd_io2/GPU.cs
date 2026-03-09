@@ -12,6 +12,8 @@ namespace Tdd_io2
 
         public void Start()
         {
+            if (IsRunning)
+                throw new InvalidOperationException("GPU already running.");
             IsRunning = true;
         }
     }
