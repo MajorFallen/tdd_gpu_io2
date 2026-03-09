@@ -104,5 +104,24 @@ namespace gpu.Tests
 
             Assert.Throws<ArgumentException>(() => gpu.CalculateCost(0));
         }
+
+        [Fact]
+        public void CalculateCost_ShouldNotExceedMaxLimit()
+        {
+            var clock = new FakeClock { Now = new DateTime(2024, 1, 1, 10, 0, 0) };
+            var gpu = new GPU(clock);
+
+            gpu.Start();
+            clock.Now = clock.Now.AddHours(5);
+            gpu.Stop();
+
+            double hourlyRate = 10;
+            double maxCost = 40; // limit kosztu
+
+            var manager = new GPUManager(maxCost);
+            double cost = manager.CalculateCost(gpu, hourlyRate);
+
+            Assert.Equal(maxCost, cost);
+        }
     }
 }
