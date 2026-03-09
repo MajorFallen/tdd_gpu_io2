@@ -28,5 +28,24 @@ namespace gpu.Tests
             Thread.Sleep(1000);
             Assert.True(gpu.RunningTime.TotalSeconds >= 1);
         }
+
+        [Fact]
+        public void Stop_ShouldSetIsRunningToFalse()
+        {
+            var gpu = new GPU();
+
+            gpu.Start();
+            gpu.Stop();
+
+            Assert.False(gpu.IsRunning);
+        }
+
+        [Fact]
+        public void Stop_WhenGpuNotRunning_ShouldThrowException()
+        {
+            var gpu = new GPU();
+
+            Assert.Throws<InvalidOperationException>(() => gpu.Stop());
+        }
     }
 }
