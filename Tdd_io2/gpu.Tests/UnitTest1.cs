@@ -19,5 +19,14 @@ namespace gpu.Tests
             gpu.Start();
             Assert.Throws<InvalidOperationException>(() => gpu.Start());
         }
+
+        [Fact]
+        public void RunningTime_ShouldIncreaseAfterStart()
+        {
+            var gpu = new GPU();
+            gpu.Start();
+            Thread.Sleep(1000);
+            Assert.True(gpu.RunningTime.TotalSeconds >= 1);
+        }
     }
 }
